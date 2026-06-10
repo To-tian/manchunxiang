@@ -9,7 +9,6 @@
         body { margin: 0; overflow: hidden; background-color: #0a0a0c; font-family: 'Segoe UI', sans-serif; touch-action: none; }
         canvas { position: fixed; top: 0; left: 0; z-index: 1; }
 
-        /* 顶部固定标题 */
         #main-title {
             position: fixed; top: 25px; left: 0; width: 100%;
             text-align: center; z-index: 50; pointer-events: none;
@@ -59,7 +58,6 @@
         }
         #input_video.hidden-cam { opacity: 0; pointer-events: none; }
 
-        /* 摄像头开关按钮 */
         #btn-toggle-cam {
             position: fixed; bottom: 25px; right: 25px; z-index: 100;
             width: 44px; height: 44px; border-radius: 50%;
@@ -122,17 +120,21 @@
     </script>
 
     <script>
-        // ========== 固定资源列表 ==========
+        // ========== 固定资源列表（26张照片） ==========
         const MY_PHOTOS = [
-            'photo1.jpg', 'photo2.jpg', 'photo3.jpg',
-            'photo4.jpg', 'photo5.jpg', 'photo6.jpg',
-            'photo7.jpg', 'photo8.jpg', 'photo9.jpg',
-            'photo10.jpg', 'photo11.jpg', 'photo12.jpg'
+            '1.jpg', '2.jpg', '3.jpg',
+            '4.jpg', '5.jpg', '6.jpg',
+            '7.jpg', '8.jpg', '9.jpg',
+            '10.jpg', '11.jpg', '12.jpg',
+            '13.jpg', '14.jpg', '15.jpg',
+            '16.jpg', '17.jpg', '18.jpg',
+            '19.jpg', '20.jpg', '21.jpg',
+            '22.jpg', '23.jpg', '24.jpg',
+            '25.jpg', '26.jpg'
         ];
         const MY_MUSIC = 'bgm.mp3';
-        // 固定中速旋转
         const FIXED_ROTATION_SPEED = 0.004;
-        // ================================
+        // =============================================
 
         const state = {
             explosion: 0.0, targetExplosion: 0.0, photoActive: false,
@@ -359,7 +361,6 @@
                 p.rotation.z += 0.005 * (1 + state.explosion * 5);
             });
 
-            // 固定中速旋转
             treeGroup.rotation.y += FIXED_ROTATION_SPEED + state.explosion * 0.01;
 
             if (topDecoration) {
@@ -433,7 +434,6 @@
         }
 
         function setupUI() {
-            // 摄像头开关按钮
             document.getElementById('btn-toggle-cam').addEventListener('click', () => {
                 const videoEl = document.getElementById('input_video');
                 videoEl.classList.toggle('hidden-cam');
