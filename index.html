@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Magic Holiday · 专属回忆</title>
+    <title>祝满春香天天开心</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Ma+Shan+Zheng&family=Long+Cang&family=Noto+Sans+SC:wght@700&display=swap" rel="stylesheet">
     <style>
         body { margin: 0; overflow: hidden; background-color: #0a0a0c; font-family: 'Segoe UI', sans-serif; touch-action: none; }
         canvas { position: fixed; top: 0; left: 0; z-index: 1; }
 
+        /* 顶部固定标题 */
         #main-title {
-            position: fixed; top: 20px; left: 0; width: 100%;
-            text-align: center; z-index: 50; pointer-events: none; opacity: 0; transition: opacity 0.5s;
+            position: fixed; top: 25px; left: 0; width: 100%;
+            text-align: center; z-index: 50; pointer-events: none;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3.5rem; white-space: nowrap;
+            background: linear-gradient(to bottom, #b89764, #d4b886);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(180,150,100,0.4);
-            font-size: 5rem; white-space: nowrap;
+            animation: titleGlow 3s ease-in-out infinite;
         }
-        .style-xmas { background: linear-gradient(to bottom, #b89764, #8b7355); }
-        .style-cny { background: linear-gradient(to bottom, #8b3a3a, #b89764); }
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(180,150,100,0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(200,170,120,0.6)); }
+        }
 
         #start-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -26,10 +32,10 @@
             transition: opacity 0.8s;
         }
         #btn-start {
-            padding: 15px 50px; font-size: 20px; background: linear-gradient(90deg, #8b7355, #6b533a);
+            padding: 16px 50px; font-size: 18px; background: linear-gradient(90deg, #8b7355, #6b533a);
             border: none; border-radius: 30px; color: #0a0a0c; font-weight: bold; cursor: pointer;
-            box-shadow: 0 0 30px rgba(180,150,100,0.4); margin-top: 30px;
-            -webkit-tap-highlight-color: transparent;
+            box-shadow: 0 0 30px rgba(180,150,100,0.5); margin-top: 30px;
+            -webkit-tap-highlight-color: transparent; letter-spacing: 2px;
         }
 
         #photo-modal {
@@ -53,45 +59,22 @@
         }
         #input_video.hidden-cam { opacity: 0; pointer-events: none; }
 
-        #toggle-btn {
-            position: fixed; top: 20px; right: 20px; width: 40px; height: 40px;
-            background: rgba(255,255,255,0.08); border-radius: 50%; color: #b89764;
-            border: 1px solid rgba(255,255,255,0.2); cursor: pointer; z-index: 101;
-            display: flex; justify-content: center; align-items: center; font-size: 18px;
-        }
-
-        #ui-panel {
-            position: fixed; top: 70px; right: 20px; width: 260px;
-            max-height: 70vh; overflow-y: auto;
-            background: rgba(10,10,12,0.92); backdrop-filter: blur(15px);
-            padding: 18px; border-radius: 12px; color: #b89764;
-            border: 1px solid rgba(255,255,255,0.1); z-index: 100;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            box-shadow: -5px 0 20px rgba(0,0,0,0.7);
-            font-size: 13px;
-        }
-        #ui-panel.hidden { transform: translateX(130%); }
-
-        .control-section { border-bottom: 1px dashed rgba(180,150,100,0.2); padding-bottom: 12px; margin-bottom: 12px; }
-        .control-section:last-child { border-bottom: none; }
-        .control-group { margin-bottom: 8px; }
-        .control-group label { display: flex; justify-content: space-between; font-size: 11px; color: #bba180; margin-bottom: 4px; }
-        input[type=range] { width: 100%; accent-color: #b89764; }
-        input[type=text] { width: 100%; padding: 6px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #b89764; border-radius: 4px; font-size: 13px; }
-        select { width: 100%; padding: 5px; background: #222; border: 1px solid #444; color: #fff; border-radius: 4px; }
-        .btn { width: 100%; padding: 7px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #b89764; cursor: pointer; border-radius: 6px; font-size: 12px; }
-        .btn.active { background: linear-gradient(90deg, #8b3a3a, #5a2020); }
-        h3 { margin: 0 0 8px 0; font-size: 13px; color: #b89764; }
-
-        @media (max-width: 600px) {
-            #main-title { font-size: 3rem !important; }
-            #ui-panel { width: 240px; }
+        /* 摄像头开关按钮 */
+        #btn-toggle-cam {
+            position: fixed; bottom: 25px; right: 25px; z-index: 100;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(20,20,25,0.85); border: 1px solid rgba(180,150,100,0.3);
+            color: #b89764; font-size: 20px; cursor: pointer;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(10px);
         }
     </style>
 </head>
 <body class="bg-black">
 
-    <div id="main-title" class="style-xmas">专属回忆</div>
+    <div id="main-title">祝满春香天天开心</div>
 
     <div id="start-screen">
         <h1 style="font-family: 'Great Vibes'; font-size: 3.5rem; color: #b89764; margin: 0;">Magic Holiday</h1>
@@ -106,80 +89,8 @@
         <div id="photo-caption">Sweet Memory</div>
     </div>
 
-    <button id="toggle-btn">⚙️</button>
+    <button id="btn-toggle-cam">📷</button>
     <video id="input_video" class="hidden-cam" autoplay playsinline muted></video>
-
-    <div id="ui-panel">
-        <div class="control-group">
-            <button id="btn-fullscreen" class="btn">⛶ 全屏模式</button>
-        </div>
-
-        <div class="control-section">
-            <h3>📝 文字自定义</h3>
-            <div class="control-group">
-                <label>标题内容</label>
-                <input type="text" id="custom-text" value="专属回忆">
-            </div>
-            <div class="control-group">
-                <label>字体大小 <span id="val-font-size">5.0</span>rem</label>
-                <input type="range" id="font-size" min="2.0" max="10.0" step="0.5" value="5.0">
-            </div>
-            <div class="control-group">
-                <label>选择字体</label>
-                <select id="font-family">
-                    <option value="'Great Vibes', cursive">Great Vibes (英/手写)</option>
-                    <option value="'Ma Shan Zheng', cursive">马善政 (中/毛笔)</option>
-                    <option value="'Long Cang', cursive">龙苍 (中/草书)</option>
-                    <option value="'Noto Sans SC', sans-serif">思源黑体 (中/粗体)</option>
-                    <option value="'Segoe UI', sans-serif">系统默认 (简洁)</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <h3>🎨 风格与场景</h3>
-            <div class="control-group" style="display:flex; gap:10px;">
-                <button id="theme-xmas" class="btn active">🎄 圣诞</button>
-                <button id="theme-cny" class="btn">🧧 新春</button>
-            </div>
-            <div class="control-group">
-                <label>背景颜色</label>
-                <select id="bg-select">
-                    <option value="black">🌌 纯黑</option>
-                    <option value="deep">🌃 深邃</option>
-                    <option value="warm">🔥 暖冬</option>
-                    <option value="aurora">❄️ 极光</option>
-                    <option value="china">🧧 中国红</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <h3>🎵 音乐与照片</h3>
-            <div class="control-group">
-                <label>背景音乐</label>
-                <div style="display:flex; gap:8px; margin-top:5px;">
-                    <button id="btn-play-pause" class="btn" style="width:40px;">⏸</button>
-                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.6" style="flex:1;">
-                </div>
-            </div>
-            <div class="control-group">
-                <button id="btn-toggle-cam" class="btn">📹 显示/隐藏 摄像头</button>
-            </div>
-        </div>
-
-        <div class="control-section">
-            <h3>🎛️ 参数调节</h3>
-            <div class="control-group">
-                <label>旋转速度 <span id="val-rot">0.002</span></label>
-                <input type="range" id="rot-speed" min="0" max="0.02" step="0.001" value="0.002">
-            </div>
-            <div class="control-group">
-                <label>树的高度</label>
-                <input type="range" id="tree-height" min="40" max="100" step="5" value="70">
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -219,11 +130,13 @@
             'photo10.jpg', 'photo11.jpg', 'photo12.jpg'
         ];
         const MY_MUSIC = 'bgm.mp3';
+        // 固定中速旋转
+        const FIXED_ROTATION_SPEED = 0.004;
         // ================================
 
         const state = {
             explosion: 0.0, targetExplosion: 0.0, photoActive: false,
-            treeHeight: 70, rotationSpeed: 0.002, style: 'xmas'
+            treeHeight: 70, rotationSpeed: FIXED_ROTATION_SPEED, style: 'xmas'
         };
 
         let scene, camera, renderer, clock;
@@ -235,7 +148,6 @@
             const screen = document.getElementById('start-screen');
             screen.style.opacity = 0;
             setTimeout(() => screen.remove(), 1000);
-            document.getElementById('main-title').style.opacity = 1;
             document.getElementById('input_video').classList.remove('hidden-cam');
             initAudio();
             loadFixedPhotos();
@@ -256,9 +168,7 @@
             const source = audioCtx.createMediaElementSource(audioEl);
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
-            audioEl.play().then(() => {
-                document.getElementById('btn-play-pause').innerText = '⏸';
-            }).catch(e => console.log('自动播放需用户交互:', e));
+            audioEl.play().catch(e => console.log('自动播放需用户交互:', e));
         }
 
         function loadFixedPhotos() {
@@ -271,7 +181,6 @@
                     loadedImages.push(img);
                     if (loadedImages.length === MY_PHOTOS.length) {
                         updatePhotos();
-                        console.log('所有照片加载完成');
                     }
                 };
                 img.onerror = () => console.warn('照片加载失败:', url);
@@ -311,7 +220,7 @@
                 particleSystem.geometry.dispose();
             }
             const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
-            const count = isMobile ? 8000 : 18000; // 移动端降低粒子数
+            const count = isMobile ? 8000 : 18000;
             const geo = new THREE.BufferGeometry();
             const positions = [], spherePos = [], colors = [], sizes = [], types = [];
             const h = state.treeHeight;
@@ -450,7 +359,8 @@
                 p.rotation.z += 0.005 * (1 + state.explosion * 5);
             });
 
-            treeGroup.rotation.y += state.rotationSpeed + state.explosion * 0.01;
+            // 固定中速旋转
+            treeGroup.rotation.y += FIXED_ROTATION_SPEED + state.explosion * 0.01;
 
             if (topDecoration) {
                 if (state.style === 'xmas') topDecoration.rotation.y -= 0.02;
@@ -523,89 +433,17 @@
         }
 
         function setupUI() {
-            document.getElementById('btn-fullscreen').addEventListener('click', () => {
-                if (!document.fullscreenElement) {
-                    document.documentElement.requestFullscreen();
-                } else {
-                    document.exitFullscreen();
-                }
-            });
+            // 摄像头开关按钮
             document.getElementById('btn-toggle-cam').addEventListener('click', () => {
-                document.getElementById('input_video').classList.toggle('hidden-cam');
-            });
-            document.getElementById('bg-select').addEventListener('change', (e) => {
-                document.body.className = 'bg-' + e.target.value;
-            });
-            document.getElementById('toggle-btn').addEventListener('click', () => {
-                document.getElementById('ui-panel').classList.toggle('hidden');
-            });
-            document.getElementById('rot-speed').addEventListener('input', (e) => {
-                state.rotationSpeed = parseFloat(e.target.value);
-                document.getElementById('val-rot').innerText = state.rotationSpeed.toFixed(3);
-            });
-            document.getElementById('btn-play-pause').addEventListener('click', () => {
-                if (audioEl.paused) {
-                    audioEl.play();
-                    document.getElementById('btn-play-pause').innerText = '⏸';
+                const videoEl = document.getElementById('input_video');
+                videoEl.classList.toggle('hidden-cam');
+                const btn = document.getElementById('btn-toggle-cam');
+                if (videoEl.classList.contains('hidden-cam')) {
+                    btn.innerHTML = '📷';
                 } else {
-                    audioEl.pause();
-                    document.getElementById('btn-play-pause').innerText = '▶';
+                    btn.innerHTML = '📸';
                 }
             });
-            document.getElementById('volume-slider').addEventListener('input', (e) => {
-                audioEl.volume = parseFloat(e.target.value);
-            });
-            document.getElementById('tree-height').addEventListener('input', (e) => {
-                state.treeHeight = parseInt(e.target.value);
-                createParticles();
-                if (topDecoration) topDecoration.position.y = state.treeHeight;
-            });
-
-            const titleEl = document.getElementById('main-title');
-            const textInput = document.getElementById('custom-text');
-            const sizeInput = document.getElementById('font-size');
-            const fontSelect = document.getElementById('font-family');
-
-            textInput.addEventListener('input', (e) => titleEl.innerText = e.target.value);
-            sizeInput.addEventListener('input', (e) => {
-                titleEl.style.fontSize = e.target.value + 'rem';
-                document.getElementById('val-font-size').innerText = e.target.value;
-            });
-            fontSelect.addEventListener('change', (e) => titleEl.style.fontFamily = e.target.value);
-
-            const switchTheme = (type) => {
-                state.style = type;
-                if (type === 'xmas') {
-                    titleEl.innerText = '专属回忆';
-                    titleEl.className = 'style-xmas';
-                    titleEl.style.fontFamily = "'Great Vibes', cursive";
-                    textInput.value = '专属回忆';
-                    fontSelect.value = "'Great Vibes', cursive";
-                    document.body.className = 'bg-black';
-                    document.getElementById('bg-select').value = 'black';
-                    document.getElementById('theme-xmas').classList.add('active');
-                    document.getElementById('theme-cny').classList.remove('active');
-                } else {
-                    titleEl.innerText = '新春快乐';
-                    titleEl.className = 'style-cny';
-                    titleEl.style.fontFamily = "'Ma Shan Zheng', cursive";
-                    textInput.value = '新春快乐';
-                    fontSelect.value = "'Ma Shan Zheng', cursive";
-                    document.body.className = 'bg-china';
-                    document.getElementById('bg-select').value = 'china';
-                    document.getElementById('theme-cny').classList.add('active');
-                    document.getElementById('theme-xmas').classList.remove('active');
-                }
-                titleEl.style.fontSize = '5rem';
-                sizeInput.value = '5.0';
-                document.getElementById('val-font-size').innerText = '5.0';
-                createParticles();
-                createTopObject();
-                if (loadedImages.length > 0) updatePhotos();
-            };
-
-            document.getElementById('theme-xmas').addEventListener('click', () => switchTheme('xmas'));
-            document.getElementById('theme-cny').addEventListener('click', () => switchTheme('cny'));
         }
     </script>
 </body>
